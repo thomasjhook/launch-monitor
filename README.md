@@ -1,6 +1,6 @@
 # Golf Launch Monitor
 
-A professional-grade, open-source golf launch monitor built using a Raspberry Pi 5, high-speed camera, radar sensor, and infrared trigger system. This project measures golf ball launch speed, launch angle, and spin rate using a combination of computer vision and radar signal processing.
+A DIY golf launch monitor built using a Raspberry Pi 5, high-speed camera, radar sensor, and infrared trigger system. This project measures golf ball launch speed, launch angle, and spin rate using a combination of computer vision and radar signal processing.
 
 ---
 

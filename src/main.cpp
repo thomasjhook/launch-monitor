@@ -6,6 +6,7 @@
 
 int main() {
 
+    Logger::setLogLevel(LogLevel::DEBUG);
     Logger::info("Starting DIY Launch Monitor...");
     Logger::info("Initializing components...");
     initCamera();
