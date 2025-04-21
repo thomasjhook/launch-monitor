@@ -38,9 +38,65 @@ A DIY golf launch monitor built using a Raspberry Pi 5, high-speed camera, radar
 
 ## 🛠 Build Instructions
 
-### 🧪 macOS (development)
+### ⚙️ Raspberry Pi Configuration & Dependencies
 
+#### ✅ Step 1: Update & Upgrade the System
 ```bash
-./scripts/build_mac.sh
+sudo apt update && sudo apt upgrade -y
+```
+#### ✅ Step 2: Install Required Build Tools and libraries
+```bash
+sudo apt install -y build-essential cmake git libcamera-dev libcamera-apps libgpiod-dev libfftw3-dev libopencv-dev libgtest-dev
+```
+#### ✅ Step 3: Enable SPI Interface (for MCP3008)
+
+The MCP3008 analog-to-digital converter communicates with the Raspberry Pi over SPI.
+
+1. Run the configuration tool:
+```bash
+sudo raspi-config
+```
+2. Interface Options → SPI → Enable
+#### ✅ Step 4: Clone and Build the Project
+```bash
+git clone https://github.com/thomasjhook/launch-monitor.git
+cd launch-monitor
+./scripts/build.sh
 ./build/launch_monitor
 ```
+
+## ⚡️ Testing with Google Test
+
+This project uses Google Test for unit testing. Follow these steps to run the tests:
+
+### Prerequisites
+
+- Google Test framework installed on your system
+- CMake 3.10 or higher
+
+### Building and Running Tests
+
+```bash
+# Create a build directory
+mkdir -p build && cd build
+
+# Generate build files
+cmake ..
+
+# Build the project and tests
+make
+
+# Run the tests
+ctest
+```
+
+### Writing New Tests
+
+To add new tests:
+
+1. Create a new test file in the `test/` directory with the naming convention `*_test.cpp`
+2. Add the new test file to `test/CMakeLists.txt`
+3. Follow the existing test patterns using Google Test macros
+
+Test files should use the TEST() or TEST_F() macros to define test cases, and use
+the various EXPECT_* or ASSERT_* macros for verification.

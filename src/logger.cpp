@@ -1,9 +1,9 @@
 #include "logger.hpp"
-#include <iostream>
 #include <chrono>
 #include <ctime>
 
 LogLevel Logger::currentLogLevel = LogLevel::DEBUG;
+std::ostream* Logger::outputStream = &std::cout;
 
 void Logger::setLogLevel(LogLevel level) {
     currentLogLevel = level;
@@ -25,6 +25,11 @@ void Logger::log(const std::string& msg, LogLevel level) {
     if (level < currentLogLevel) {
         return;
     }
+
+    // Make sure we have a valid output stream
+    if (!outputStream) {
+        outputStream = &std::cout;
+    }
     // Get timestamp
     auto now = std::chrono::system_clock::now();
     std::time_t t = std::chrono::system_clock::to_time_t(now);
@@ -35,7 +40,7 @@ void Logger::log(const std::string& msg, LogLevel level) {
     std::string color = colorForLevel(level);
     std::string reset = "\033[0m";
 
-    std::cout << color << "[" << logLevelToString(level) << "] "
+    *outputStream << color << "[" << logLevelToString(level) << "] "
               << reset << timeStr << " - " << msg  << std::endl;
     
 }
