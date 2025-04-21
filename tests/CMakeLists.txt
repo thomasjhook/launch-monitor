@@ -1,10 +1,3 @@
-# Enable testing
-enable_testing()
-
-# Find GTest package
-find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS})
-
 # Add test executable
 add_executable(launch_monitor_tests
     logger_test.cpp
@@ -16,9 +9,8 @@ add_executable(launch_monitor_tests
 
 # Link test executable with GTest and your project libraries
 target_link_libraries(launch_monitor_tests
-    ${GTEST_LIBRARIES}
-    ${GTEST_MAIN_LIBRARIES}
-    pthread
+    gtest
+    gtest_main
     launch_monitor_lib
 )
 
@@ -30,3 +22,8 @@ target_include_directories(launch_monitor_tests PRIVATE
 
 # Add test to CTest
 add_test(NAME launch_monitor_tests COMMAND launch_monitor_tests)
+
+# Set working directory for test
+set_tests_properties(launch_monitor_tests PROPERTIES
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+)
