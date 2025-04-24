@@ -16,6 +16,10 @@ FetchContent_MakeAvailable(googletest)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Find the libgpiod package
+find_library(GPIOD_LIBRARY NAMES gpiod)
+find_library(GPIODCXX_LIBRARY NAMES gpiodcxx)
+
 add_library(launch_monitor_lib
     src/logger.cpp
     src/radar.cpp
@@ -26,6 +30,12 @@ add_library(launch_monitor_lib
 # Define include directories for the library
 target_include_directories(launch_monitor_lib PUBLIC
     ${CMAKE_SOURCE_DIR}/include
+)
+
+# Link libgpiod library
+target_link_libraries(launch_monitor_lib 
+    ${GPIOD_LIBRARY}
+    ${GPIODCXX_LIBRARY}
 )
 
 # Add test subdirectory

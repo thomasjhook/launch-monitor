@@ -16,4 +16,6 @@ cmake ..
 echo "Building the project..."
 make
 
-echo "Build completed! Run the program with ./build/launch_monitor"
+# Run the tests
+echo "Run the tests"
+ctest --verbose
