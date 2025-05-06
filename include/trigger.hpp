@@ -12,12 +12,6 @@ struct gpiod_line;
 // Default pin for TCRT5000 sensor
 constexpr int IR_DIGITAL_PIN = 17;
 
-// Function to initialize the trigger system
-void initTrigger();
-
-// Function to cleanup resources
-void cleanupTrigger();
-
 // Follows the Singleton pattern to manage the trigger system
 class TriggerManager {
 public:

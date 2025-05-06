@@ -119,24 +119,3 @@ void TriggerManager::simulateTrigger() {
         triggerCallback(lastTriggerTime);
     }
 }
-
-// Global functions
-
-void initTrigger() {
-    // Initialize the trigger manager
-    TriggerManager::getInstance().init();
-    
-    // Register a callback to be executed when a trigger event occurs
-    TriggerManager::getInstance().setTriggerCallback([](std::chrono::time_point<std::chrono::steady_clock> timestamp) {
-        static auto programStart = std::chrono::steady_clock::now();
-        auto millisSinceStart = std::chrono::duration_cast<std::chrono::milliseconds>(
-            timestamp - programStart).count();
-        
-        // TODO - implement camera/radar capture sequence
-        Logger::info("Ball detected at " + std::to_string(millisSinceStart) + " ms");
-    });
-}
-
-void cleanupTrigger() {
-    TriggerManager::getInstance().cleanup();
-}
